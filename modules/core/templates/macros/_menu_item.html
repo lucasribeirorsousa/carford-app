@@ -1,0 +1,31 @@
+{% macro menu_item_no_child(link='#',icon='',title='',badget='',color_badget='',title_badget='') %}
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        {% if icon %} <i class="nav-icon fas {{icon}}"></i>{% endif %}
+      <p> {{title}} </p>
+      {% if badget %}<span class="right badge {{color_badget}}">{{title_badget}}</span>{% endif %}
+    </a>
+</li>
+{% endmacro %}
+{% macro menu_item_simple(url='#',icon='',title='',badget='',color_badget='',title_badget='' , id="" ,url_link="")  %}
+<li class="nav-item has-treeview">
+    <a href="{{url|e}}" class="nav-link" {% if id %}  id="{{id}}"  {% endif %}  {% if id %} url_link="{{url_link}}" {% endif %} >
+    {% if icon %} <i class="nav-icon fas {{icon}}"></i>{% endif %}
+      <p {% if not icon %} class="ml-4" {% endif %}> {{title}} </p>
+      {% if badget %}<span class="right badge {{color_badget}}">{{title_badget}}</span>{% endif %}
+    </a>
+</li>
+{% endmacro %}
+{% macro menu_item_with_sub(url='#',icon='',title='',badget='',color_badget='',title_badget='') %}
+<li class="nav-item has-treeview">
+    <a href="{{url|e}}" class="nav-link">
+        {% if icon %} <i class="nav-icon fas {{icon}}"></i>{% endif %}
+       <p> {{title}} </p>
+      <i class="fas fa-angle-left right"></i>
+      {% if badget %}<span class="right badge {{color_badget}}">{{title_badget}}</span> {% endif %}
+    </a>
+    <ul class="nav nav-treeview">
+        {{ caller () }}
+    </ul>
+</li>    
+{% endmacro %}

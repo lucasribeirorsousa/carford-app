@@ -1,0 +1,23 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_header_dashboard.html" import header_dashboard %}
+{% block title %}Principal{% endblock %}
+{% block dash %}
+  {{header_dashboard(link=url_for('core.novo_usuario'),title='Usuário')}}
+  {% include 'auth/datatables.html' %}
+{% endblock %}
+{% block js_dash %}
+<script>
+    $(function () {
+      $('#usuarios').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "scrollX": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
+  {% endblock %}

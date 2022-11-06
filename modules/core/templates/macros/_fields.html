@@ -1,0 +1,6 @@
+{% macro input(field=None,class='form-control form-control-sm',label=True) %}
+    {% if label %} 
+    {{ field.label }}
+    {% endif %}
+    {{ field(class=class )}}
+{% endmacro %}

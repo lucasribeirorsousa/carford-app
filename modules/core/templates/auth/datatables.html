@@ -1,0 +1,124 @@
+<table id="usuarios" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th  width="20">ID</th>
+      <th  width="20">ATIVO</th>
+      <th  width="140"  >NOME/RAZAO SOCIAL</th>
+      <th  width="20">EMAIL</th>
+      <th  width="20">USUÁRIO</th>
+      <th width="220" >AÇÕES</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for item in lista %}
+      <tr>
+        <td>{{item.id}}</td>
+        <td> {%  if item.active  %} SIM {%  else  %} NÂO {%  endif  %}  </td>
+        <td>{{item.nome_completo}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.username}}</td>
+        <td>
+          <a href="{{url_for('core.editar_usuario',id=item.id)}}" class="btn btn-block btn-outline-info btn-sm"><i class="fas fa-edit"></i> EDITAR</a>
+          <a href="{{url_for('core.admin_reset_senha',id=item.id)}}" class="btn btn-block btn-outline-info btn-sm"><i class="fas fa-unlock"></i> RESET DE SENHA</a>
+        </td>
+      </tr>
+    {% endfor %}
+    <div class="container-error"></div>
+    </tfoot>
+  </table>
+
+  <script>
+    var elem = "html";
+    var text = "Some text";
+    var xml = `<${elem}>{text}</${elem}>`;
+    $(function () {
+     
+    $( ".novo_credito" ).click(function() {
+        var url = $(this).attr('url_credito');
+        send_sms_modal = $.confirm({
+          lazyOpen: true, 
+          theme:'material',
+          closeIcon: true,
+          columnClass:'col-6',
+          buttons:{
+              adicionar: {
+                text: '<i class="fas fa-plus"></i> crédito ',
+                btnClass: 'btn-blue',
+                action: function(){
+                 return false;
+                }
+            },
+          },
+        });
+        send_sms_modal.open();
+        send_sms_modal.showLoading(true);
+        var jqXHR = jQuery.ajax({
+            type: 'GET',
+            url: url
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            
+        })
+        .done(function (data, textStatus, jqXHR) {
+          send_sms_modal.setContent(data);
+          send_sms_modal.setTitle('ADICIONAR CRÉDITO');
+        })
+        .always(function (dataOrjqXHR, textStatus, jqXHRorErrorThrown) { 
+          send_sms_modal.hideLoading(true);
+        });
+        send_sms_modal.onAction =  function (btnName) {
+          var form = send_sms_modal.$content.find('form').first();
+          var data = send_sms_modal.$content.find('form').first().serialize();
+          var url = form.attr('action');
+          var frm = form.serialize();
+
+          var jqXHR = jQuery.ajax({
+                type: 'POST',
+                data:data,
+                url: url
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+
+            })
+            .done(function (data, textStatus, jqXHR) {
+              send_sms_modal.setContent(data);
+              var input_error = send_sms_modal.$content.find('#errors_forms').first();
+              if (input_error.length == 0 ){
+                  send_sms_modal.close();
+                  $.dialog({
+                      theme:'material',
+                      type: 'blue',
+                      title: 'Cadastrado com sucesso',
+                      content: ' ',
+                  });
+                return ;
+              }
+              send_sms_modal.setTitle('VERIFIQUE OS CAMPOS');
+            })
+            .always(function (dataOrjqXHR, textStatus, jqXHRorErrorThrown) { 
+              
+            });
+        }
+    });
+    $('body').on('change','#planos_operadora', function(event) {
+        event.stopImmediatePropagation();
+        var form = send_sms_modal.$content.find('form').first().serialize();
+        var val = $(this).val();
+        if(val =='__None'){
+            $('#valor_shortcode').val('0,000');
+            $('#valor_long_number').val('0,000');
+            $('#valor').val('0,000');
+            return ;
+        }
+        var planos = $('#planos').val();
+        var valores_planos = JSON.parse(planos);
+        var obj = _.find(valores_planos, { 'id': parseInt(val) });
+        $('#valor_shortcode').val(obj.short);
+        $('#valor_long_number').val(obj.long);
+        $('#valor').val(obj.valor);
+
+          
+         
+    });
+  });
+  </script>

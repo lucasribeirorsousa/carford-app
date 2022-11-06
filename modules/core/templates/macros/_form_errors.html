@@ -1,0 +1,15 @@
+{% macro form_errors(form) %}
+    {% if form.errors %}
+        <div class="alert alert-light alert-dismissible fade show p-1 container-fluid" role="alert" id="errors_formularios">
+                {% for errors in form.errors %}
+                <div class="border p-3">
+                <h5 class="alert-heading mb-1">{{form[errors].label}}</h5>
+                {% for error in form[errors].errors %}<span class="mr-4">{{ error }}</span class="mr-4">{% endfor %}
+                </div>
+            {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+{% from "macros/_form_errors.html" import form_errors %}
+{% block html_css %}
+<style>
+.login-box{
+    margin-top: 15% !important;
+}
+</style>
+{% endblock %}
+{% from "macros/_messages.html" import  messages_views %}
+{% block content %}
+<div class="container-login container h-100" >
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="login-box">
+            <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">
+                    <a href="{{ url_for('core.home') }}" class="navbar-brand m-1">
+                        <img src="{{ url_for('static', filename='imgs/logo.png') }}" alt="VoxCALL" class="img-responsive"  style="max-width: 220px;">
+                    </a>
+                </p>
+                <form class="form-horizontal" method="post" action="{{ url_for_security('login') }}" novalidate name="login" method="POST" >
+                    {% if login_form.error %}
+                        <div class="alert alert-light alert-dismissible fade show p-1 container-fluid" role="alert">
+                                {% for errors in form.errors %}
+                                <div class="border p-3">
+                                <h5 class="alert-heading mb-1">{{form[errors].label}}</h5>
+                                {% for error in login_form[errors].errors %}<span class="mr-4">{{ error }}</span class="mr-4">{% endfor %}
+                                </div>
+                            {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {{ login_form.hidden_tag() }}
+                    {{form_errors(form=login_form)}}
+                    <div class="input-group mb-3">
+                        {{login_form.email(class="form-control")}}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{login_form.password(class="form-control")}}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-info btn-block">
+                        <i class="fas fa-sign-in-alt mr-4" style="font-size: 1.4em;"></i>
+                        Entrar 
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

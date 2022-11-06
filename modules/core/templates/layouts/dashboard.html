@@ -1,0 +1,154 @@
+{% extends "layouts/base.html" %}
+{% from "macros/_messages.html" import  messages_views %}
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_fields.html" import input %}
+{% block html_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/DataTables/datatables.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/DataTables/Buttons-1.7.1/css/buttons.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/jsconfirm/jquery-confirm.min.css') }}" >
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }} ">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/pace-progress/themes/black/pace-theme-flat-top.css') }} ">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/css/select2.min.css') }} ">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }} ">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/summernote/summernote-bs4.css') }} ">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/dropzone/dropzone.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.min.css') }}">
+
+
+
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+
+{% include 'components/sidebar-left.html' %}
+<div class="content-wrapper">
+    <div class="container-fluid" style="background-color: white;">
+      {{messages_views()}}
+      {% block dash %}{% endblock %}
+    </div>
+</div>
+<footer class="main-footer">
+    <div class="float-right d-none d-sm-inline">
+      
+    </div>
+    <strong>Copyright &copy;  {{now.strftime('%Y')}} <a href="{{url_for('core.home')}}">{{APP}} </a>.</strong> All rights reserved.
+  </footer>
+{% endblock %}
+{% block js_extensao %}
+<script src="{{ url_for('static', filename='plugins/DataTables/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/DataTables/Buttons-1.7.1/js/buttons.bootstrap.js') }}"></script>
+
+<script src="{{ url_for('static', filename='plugins/lodash.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/bind.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/dropzone/dropzone.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jsconfirm/jquery-confirm.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/ColReorderWithResize.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/summernote/summernote-bs4.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/moment/moment-with-locales.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/currency.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+
+{% endblock %} 
+{% block js %}
+<script src="{{ url_for('static', filename='plugins/ColReorderWithResize.js') }}"></script>
+<script src="{{ url_for('static', filename='app/BASE.js') }}"></script>
+<script src="{{ url_for('static', filename='app/modals.js') }}"></script>
+<script>
+
+var dt_pesquisa = {
+    ...global_datatable,
+    "searching": true,
+        lengthMenu: [
+            [10,50,100, 200, 500, -1],
+            [10,50,100, 200, 500, 'Todos'],
+    ]};
+
+function getIndicesOf(searchStr, str, caseSensitive) {
+    var searchStrLen = searchStr.length;
+    if (searchStrLen == 0) {
+        return [];
+    }
+    var startIndex = 0, index, indices = [];
+    if (!caseSensitive) {
+        str = str.toLowerCase();
+        searchStr = searchStr.toLowerCase();
+    }
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    return indices;
+}
+
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+const block_ui_config =
+    {
+            message: '<i class="fa fa-spinner text-center text-white fa-pulse fa-5x fa-fw"></i>&nbsp;',
+               overlayCSS: {
+                            backgroundColor: '#343a40',
+                            opacity: 0.9,
+                            cursor: 'wait'
+                },
+                css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: 'transparent'
+                    },
+    };
+
+function BLOCKUI () {
+    $.blockUI(block_ui_config);
+}
+function UNBLOCKKUI () {
+    $.unblockUI();
+}
+$(document).ready(function(){
+    $("[select2]").select2();
+    $('[summernote]').summernote()
+    moment.locale('pt-br');
+    const now = moment(); 
+});
+$(function () {
+    var base_js_confirm = {
+        theme:'material',
+        type:'blue',
+        buttons: {
+                apagar: {
+                text: 'SIM',
+                btnClass: 'btn-blue',
+                action: function(){
+                  tr.remove();
+                    
+                }
+            }
+        }
+    }
+
+});
+(function ($) {
+   
+    $.fn.serializeFormJSON = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+})(jQuery);
+</script>
+{% block js_dash %}
+{% endblock %}
+
+{% endblock %}

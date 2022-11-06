@@ -1,0 +1,12 @@
+env/
+venv/
+.venv/
+.env
+env*
+dist/
+*.pyc
+.cache/
+.pytest_cache/
+.idea/
+.idea/
+.vscode

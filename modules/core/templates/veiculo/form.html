@@ -1,0 +1,27 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_fields.html" import input %}
+{% block title %} Modelos {% endblock %}
+{% block dash %}
+{% call form_card(form=form,action=request.path,title='veiculos',name="veiculos",id="veiculos", url_cancelamento='#',upload=False)  %} 
+<div class="container-fluid pb-4">
+    <div class="row mb-4">
+        <div class="col-12">
+          {{input(form.pessoa)}}
+        </div>
+        <div class="col-12 col-lg-4">
+          {{input(form.placa)}}
+        </div>
+        <div class="col-12 col-lg-4">
+          {{input(form.cor)}}
+        </div>
+        <div class="col-12 col-lg-4">
+          {{input(form.modelo)}}
+        </div>
+        <div class="col-12 col-lg-1 col-xl-1 text-center">
+          {{input(form.ativo)}}
+        </div>
+    </div>
+</div>
+{% endcall %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_fields.html" import input %}
+{% block title %}Principal{% endblock %}
+{% block dash %}
+{% call form_card(form=form,action=request.path,title='Usuario',url_cancelamento=url_for('core.home'))  %} 
+<div class="row container-fluid">
+    <div class="col-lg-12 col-12">
+        <div class="small-box bg-info">
+        <div class="inner text-center">
+            <h3>  {% if obj %} {{obj.nome_completo | upper}} {% else %} {{current_user.username | upper}} {% endif %} </h3>
+            <p>ALTERAÇÂO DE SENHA</p>
+        </div>
+        <div class="icon">
+            <i class="fas fa-unlock"></i>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 container-fluid">
+    
+   <div class="row">
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        {{input(form.password)}}
+      </div>
+      <div class="col-md-12 col-lg-4 col-xl-4">
+          {{input(form.confirmacao_senha)}}
+      </div>
+   </div>
+</div>
+{% endcall %}
+{% endblock %}
+{% block js_dash %}
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "layouts/dashboard.html" %}
+{% block title %}Principal{% endblock %}
+{% from "macros/_box_templates.html" import cards_simples_dash %}
+{% block dash %}
+    <div class="row text-center">
+      {% set lista = ['info','danger','warning','success','secondary','black','gray-dark','gray','maroon','indigo','navy'
+      ,'olive','teal','purple','pink','fuchsia'] %}
+      {% set lista_icons = ['ion ion-pie-graph','ion ion-stats-bars','fas fa-database'] %}
+      {% for item in q %}
+      <div class="col-lg-2 col-6"></div>
+      {% endfor %}
+  </div>
+{% endblock %}

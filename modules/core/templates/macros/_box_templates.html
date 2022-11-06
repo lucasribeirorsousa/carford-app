@@ -1,0 +1,13 @@
+{% macro cards_simples_dash(target='' ,text = '' ,class_box ='bg-info', total='12345678977',  icon='',id="" ,url="#")  %}
+<div class="small-box {{class_box}}">
+    <div class="inner">
+      <h3>{{total}}</h3>
+      <p>{{text}}</p>
+    </div>
+    <div class="icon">
+      <i class="{{icon}}"></i>
+    </div>
+    <a href="{{url}}" {% if target !='' %} target={{target}} {%endif%}  class="small-box-footer text-uppercase">visualizar <i class="fas fa-arrow-circle-right"></i></a>
+  </div>
+{% endmacro %}
+

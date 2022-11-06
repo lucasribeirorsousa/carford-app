@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="author" content="VOXCAALL-SMS">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }} ">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin-lte/css/animate.min') }} ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    {% block html_css %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='adm-lte/css/adminlte.min.css') }}">
+    <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery.blockUI.js') }}"></script>
+    <style>
+    label{
+        text-transform: uppercase !important;
+    }
+    :root {
+      --animate-duration: 800ms;
+      --animate-delay: 0.9s;
+    }
+    </style>
+    
+    <title>{{APP}} {% block title %} {% endblock %} </title>
+    {% block script %}{% endblock %}
+  </head>
+</head>
+{% set CLASS_BODY = "hold-transition" %}
+<body class="animate__animated animate__fadeIn sidebar-mini sidebar-mini-md layout-navbar-fixed" >
+    {% block content %}{% endblock %}
+    
+    {% block modals %}{% endblock %}
+    
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+
+ 
+    
+    <script>
+    
+
+    var global_datatable = {
+      'oLanguage' :{
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                },
+                "select": {
+                    "rows": {
+                        "_": "Selecionado %d linhas",
+                        "0": "Nenhuma linha selecionada",
+                        "1": "Selecionado 1 linha"
+                    }
+                },
+                "buttons": {
+                    "copy": "Copiar para a área de transferência",
+                    "copyTitle": "Cópia bem sucedida",
+                    "copyinfo": {
+                        "1": "Uma linha copiada com sucesso",
+                        "_": "%d linhas copiadas com sucesso"
+                    }
+                }
+            },
+        // "sDom": "Rlfrtip",
+        "paging": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      }
+    </script>
+    {% block js_extensao %}{% endblock %} 
+
+    {% block js %}{% endblock %}  
+    <script src="{{ url_for('static', filename='adm-lte/js/adminlte.js') }}"></script>
+  </body>
+</html>

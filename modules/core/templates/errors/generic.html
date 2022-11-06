@@ -1,0 +1,18 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_header_dashboard.html" import header_dashboard %}
+{% block title %}Principal{% endblock %}
+{% block dash %}
+        <div class="card-header no-border pb-1">
+            <div class="card-body">
+                <h2 class="error-code text-center mb-2">OPS. STATUS {{error.code}}</h2>
+                <h3 class="text-uppercase text-center">CONTATE O SUPORTE OU TENTE NOVAMENTE MAIS TARDE</h3>
+            </div>
+        </div>
+        <div class="card-content px-2">
+            <div class="row py-2">
+                <div class="col-sm-5 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 box-shadow-2">
+                    <a href="{{ url_for('core.home' ) }}" class="btn btn-info btn-block btn-lg"><i class="la la-home"></i> VOLTAR PARA O INICIO</a>
+                </div>
+            </div>
+        </div>
+{% endblock %}

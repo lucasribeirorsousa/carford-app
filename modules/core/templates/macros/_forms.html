@@ -1,0 +1,42 @@
+{% macro form_card(form, action='',title='',url_cancelamento='#',method='POST',name='#',id="",class="" ,edicao=True, titulo_botao='' , icon_btn_save ='fa-save' , show_buttons=True ,upload=False) %}
+<form role="form" link_voltar={{link_voltar}} action={{action}} method="{{method}}" name="{{name}}" id="{{ id }}" class="{{ class }}" {% if upload %} enctype="multipart/form-data"  {% endif %}>
+    {% if form.errors %}
+        <input type="hidden" id="errors_forms"  name="errors_forms" value='{{form.errors | tojson | safe }}'> 
+    {% endif %}
+    {{ form.hidden_tag() }}
+    {% if form.errors %}
+        {% for errors in form.errors %}
+            <div class="alert alert-light alert-dismissible fade show p-1 container-fluid" role="alert">
+                <div class="border border-danger p-3">
+                <h5 class="alert-heading mb-1">{{form[errors].label}}</h5>
+                    {% for err in form[errors].errors %}
+                        {{err}}
+                    {% endfor %}
+                    <span></span>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    {% endfor %}
+    {% endif %}
+    <div class="card">
+        <div class="card-header text-center">
+            <h3 class="card-title text-center">{% if edicao %} Novo / Edição  {{title}} {% else %} {{title}} {% endif %}</h3>
+        </div>
+        <div class="card-body" style="min-height: 5vw;">
+            {{ caller () }}
+        </div>
+        {% if show_buttons %} 
+        <div class="card-footer d-flex justify-content-end"> 
+            {% if edicao %} 
+                <a href="{{url_cancelamento}}" class="btn btn-secondary mr-3"><i class="nav-icon fas fa-arrow-left mr-3"></i>Cancelar / Voltar </a>
+                <button type="submit" class="btn btn-info"><i class="fas fa-save mr-3"></i> Salvar</button>
+            {% else %}
+                <button type="submit" class="btn btn-info"><i class="fas fa-{{icon_btn_save}} mr-3"></i> {{titulo_botao}}</button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</form>
+{% endmacro %}

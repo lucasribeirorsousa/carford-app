@@ -1,0 +1,14 @@
+{% macro header_dashboard(link='#',icon='fa-plus',title='', btn=True ) %}
+<div class="row mb-2 pt-2 container-fluid">
+    <div class="col-sm-6">
+      <h3>{{title | upper}}</h3>
+    </div>
+    {% if btn %}
+    <div class="col-sm-6">
+      <div class="float-sm-right">
+        <a href="{{link}}" class="btn btn-block btn-dark"><i class="nav-icon fas {{icon}}"></i> {{title}}</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+{% endmacro %}

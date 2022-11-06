@@ -1,0 +1,25 @@
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+  <div class="container-fluid">
+    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="fas fa-user mr-2"></i><b>{{current_user.username | upper}}</b>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div class="dropdown-divider"></div>
+          <a href="{{ url_for('core.reset_senha_usuario_local') }}" class="dropdown-item text-center dropdown-info">
+            <i class="fas fa-sync mr-2"></i>Troca de Senha
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{ url_for_security('logout') }}" class="dropdown-item text-center">
+            <i class="fas fa-sign-out-alt mr-2"></i>Sair
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </div>
+</nav>

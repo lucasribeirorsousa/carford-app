@@ -1,0 +1,20 @@
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_form_errors.html" import form_errors %}
+{% from "macros/_fields.html" import input %}
+{% call form_card(form=form,action=request.path, edicao=False,title='' ,titulo_botao='ENVIAR SMS',icon_btn_save='send',show_buttons=False)  %} 
+    <input type="hidden" id="form_erros" name="form_erros" value="{{form.errors | tojson}}">
+    {% for item in form.lista %}
+        <div class="col-md-12 text-center">
+            {% if form[item].type =='FieldList' %} 
+                {{form[item][0].label}}
+                {% for field_list in form[item] %}
+                    <div class="col-md-12 text-center mt-3 mb-3">
+                        {{field_list(class="form-control from-control-sm",**{'placeholder':'TELEFONE '~ loop.index} )}}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {{input(form[item])}}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endcall %}

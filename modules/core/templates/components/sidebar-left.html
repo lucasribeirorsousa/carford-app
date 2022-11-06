@@ -1,0 +1,15 @@
+{% from "macros/_menu_item.html" import menu_item_simple,menu_item_with_sub %}
+<aside class="main-sidebar sidebar-mini sidebar-mini-md layout-navbar-fixed" >
+    <a href="{{ url_for('core.home') }}" class="navbar-brand m-1 pl-4">
+        <img src="{{ url_for('static', filename='imgs/logo.png') }}" alt="Logo" class="img-responsive text-center"  style="max-width: 120px;">
+      </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            {{ menu_item_simple(url=url_for('core.usuarios'),title='Usuários')}}
+            {{ menu_item_simple(url=url_for('core.pessoas'),title='Pessoas')}}
+            {{ menu_item_simple(url=url_for('core.veiculos'),title='Veiculos')}}
+        </ul>
+      </nav>
+    </div>
+  </aside>

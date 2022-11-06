@@ -1,0 +1,37 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_header_dashboard.html" import header_dashboard %}
+{% block title %}Modelos {% endblock %}
+{% block dash %}
+    {{header_dashboard(link=url_for('core.novo_veiculo'),icon='fa-plus', btn=True )}}
+    <table id="listas" class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ATIVO</th>
+        <th>Data Cadastro</th>
+        <th>Placa</th>
+        <th>Proprietario</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for item in lista %}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{% if item.ativo %}SIM {% else %} NÂO {% endif %}</td>
+          <td>{{item.data_criacao.strftime('%d-%m-%Y %H:%M')}}</td>
+          <td>{{item.placa}}</td>
+          <td>{{item.pessoa.nome}}</td>
+          <td><a href="{{url_for('core.veiculo_edicao',id=item.id)}}" class="btn btn-block btn-outline-info btn-sm"><i class="nav-icon fas fa-edit"></i> EDITAR </a> </td>
+        </tr>
+      {% endfor %}
+      </tfoot>
+    </table>
+{% endblock %}
+{% block js_dash %}
+<script>
+    $(function () {
+      $('#listas').DataTable(dt_pesquisa);
+    });
+  </script>
+  {% endblock %}
